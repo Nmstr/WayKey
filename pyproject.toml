@@ -1,0 +1,6 @@
+[project]
+name = "waykey"
+version = "0.1.0"
+description = "Wayland automation"
+requires-python = ">=3.13"
+dependencies = []
