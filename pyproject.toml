@@ -1,5 +1,5 @@
 [project]
-name = "waykey"
+name = "WayKey"
 version = "0.1.0"
 description = "Wayland automation"
 requires-python = ">=3.13"

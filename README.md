@@ -1,10 +1,10 @@
 <div align="center">
 
-# Waykey
+# WayKey
 
-![CI](https://github.com/Nmstr/waykey/actions/workflows/run-ruff.yaml/badge.svg)
-![GitHub License](https://img.shields.io/github/license/Nmstr/waykey)
+![CI](https://github.com/Nmstr/WayKey/actions/workflows/run-ruff.yaml/badge.svg)
+![GitHub License](https://img.shields.io/github/license/Nmstr/WayKey)
 
 </div>
 
-Waykey is a wayland automation tool.
+WayKey is a wayland automation tool.

@@ -34,5 +34,5 @@ def init_device() -> UInput:
         ]
     }
 
-    ui = UInput(cap, name="waykey virtual input device")
+    ui = UInput(cap, name="WayKey virtual input device")
     return ui

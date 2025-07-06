@@ -27,7 +27,7 @@ If applicable, a list of everything you have tried to fix the problem.
 
 **Information (please complete the following information):**
  - Distro: [e.g. Arch Linux]
- - Waykey Version [e.g. 1.0]
+ - WayKey Version [e.g. 1.0]
  - ... more information...
 
 **Additional context**

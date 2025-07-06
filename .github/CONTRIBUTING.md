@@ -1,7 +1,7 @@
-# Contributing to waykey
+# Contributing to WayKey
 
 Contributions of all kinds are welcome.
-Feature additions/requests, bug fixes/reports or documentation should be contributed via [issues](https://github.com/Nmstr/waykey/issues) and/or [pull requests](https://github.com/Nmstr/waykey/pulls).
+Feature additions/requests, bug fixes/reports or documentation should be contributed via [issues](https://github.com/Nmstr/WayKey/issues) and/or [pull requests](https://github.com/Nmstr/WayKey/pulls).
 
 ## Contributing code
 
@@ -19,7 +19,7 @@ Provide as many details as you can. These should include:
 - What did you do?
 - What did you expect to happen?
 - What actually happened?
-- What version of waykey did you use?
+- What version of WayKey did you use?
 - Anything else that might be important.
 
 ## Feature requests
