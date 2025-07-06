@@ -1,7 +1,7 @@
 from evdev import ecodes as e
+import argparse
 import socket
 import json
-import time
 
 SOCKET_PATH = "/tmp/waykeyd.sock"
 
@@ -58,28 +58,36 @@ def mouse_move(x: int, y: int, w: int = 0, absolute: bool = False) -> dict:
     })
 
 if __name__ == "__main__":
-    press_key(e.KEY_LEFTSHIFT)
-    click_key(e.KEY_H)
-    release_key(e.KEY_LEFTSHIFT)
-    click_key(e.KEY_E)
-    click_key(e.KEY_L)
-    click_key(e.KEY_L)
-    click_key(e.KEY_O)
-    click_key(e.KEY_SPACE)
-    press_key(e.KEY_LEFTSHIFT)
-    click_key(e.KEY_W)
-    release_key(e.KEY_LEFTSHIFT)
-    click_key(e.KEY_O)
-    click_key(e.KEY_R)
-    click_key(e.KEY_L)
-    click_key(e.KEY_D)
-    press_key(e.KEY_LEFTSHIFT)
-    click_key(e.KEY_1)
-    release_key(e.KEY_LEFTSHIFT)
-    time.sleep(0.1)
+    parser = argparse.ArgumentParser(description='WayKey CLI')
+    subparsers = parser.add_subparsers(dest="command", required=True, help="Command to execute")
+    
+    # Key commands (press, release, click)
+    for cmd in ["press", "release", "click"]:
+        key_parser = subparsers.add_parser(cmd, help=f"{cmd.capitalize()} a key")
+        key_parser.add_argument("key", type=str, help="Key code to use")
+    # Mouse move command
+    mouse_parser = subparsers.add_parser("mouse_move", help="Move the mouse cursor")
+    mouse_parser.add_argument("x", type=int, help="X coordinate")
+    mouse_parser.add_argument("y", type=int, help="Y coordinate")
+    mouse_parser.add_argument("-w", type=int, default=0, help="Wheel movement (Only for relative movement)")
+    mouse_parser.add_argument("-a", "--absolute", action='store_true', help="Use absolute coordinates")
+    
+    args = parser.parse_args()
 
-    mouse_move(500, 500, absolute=True)
-    for i in range(100):
-        mouse_move(10, 0)
-        time.sleep(0.025)
-    mouse_move(0, 0, w=100)
+    if args.command in ["press", "release", "click"]:
+        try:
+            key_code = getattr(e, args.key)
+            if args.command == "press":
+                press_key(key_code)
+            elif args.command == "release":
+                release_key(key_code)
+            elif args.command == "click":
+                click_key(key_code)
+        except AttributeError:
+            print(f"Error: Invalid key code '{args.key}'.")
+            exit(1)
+    elif args.command == "mouse_move":
+        if args.absolute and args.w:
+            print("Error: Wheel movement can not be used with absolute movement.")
+            exit(1)
+        mouse_move(args.x, args.y, args.w, args.absolute)
