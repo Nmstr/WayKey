@@ -2,7 +2,8 @@
 
 # Waykey
 
-![GitHub License](https://img.shields.io/github/license/Nmstr/LightDrive)
+![CI](https://github.com/Nmstr/waykey/actions/workflows/run-ruff.yaml/badge.svg)
+![GitHub License](https://img.shields.io/github/license/Nmstr/waykey)
 
 </div>
 
