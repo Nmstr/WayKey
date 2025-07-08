@@ -57,6 +57,24 @@ def mouse_move(x: int, y: int, w: int = 0, absolute: bool = False) -> dict:
         "absolute": absolute
     })
 
+def list_devices() -> None:
+    """
+    List available devices
+    """
+    response = send_command({
+        "type": "get_devices"
+    })
+    devices = response.get("devices", [])
+    if not devices:
+        print("No devices found.")
+        return
+    id_width = max(len(devices.get("id", "")) for devices in devices)
+    name_width = max(len(devices.get("name", "")) for devices in devices)
+    print("Available devices:")
+    print(f"{'ID':<{id_width}}\t{'Name':<{name_width}}")
+    for device_info in response.get("devices", []):
+        print(f"{device_info.get('id', ''):<{id_width}}\t{device_info.get('name', ''):<{name_width}}")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='WayKey CLI')
     subparsers = parser.add_subparsers(dest="command", required=True, help="Command to execute")
@@ -71,7 +89,14 @@ if __name__ == "__main__":
     mouse_parser.add_argument("y", type=int, help="Y coordinate")
     mouse_parser.add_argument("-w", type=int, default=0, help="Wheel movement (Only for relative movement)")
     mouse_parser.add_argument("-a", "--absolute", action='store_true', help="Use absolute coordinates")
-    
+
+    device_parser = subparsers.add_parser("device", help="Manage devices")
+    device_subparsers = device_parser.add_subparsers(dest="device_command", required=True, help="Device command to execute")
+
+    device_subparsers.add_parser("list", help="List available devices")
+    load_parser = device_subparsers.add_parser("load", help="Load a device by ID")
+    load_parser.add_argument("id", type=str, help="ID of the device to load")
+
     args = parser.parse_args()
 
     if args.command in ["press", "release", "click"]:
@@ -91,3 +116,9 @@ if __name__ == "__main__":
             print("Error: Wheel movement can not be used with absolute movement.")
             exit(1)
         mouse_move(args.x, args.y, args.w, args.absolute)
+    elif args.command == "device":
+        if args.device_command == "list":
+            list_devices()
+        elif args.device_command == "load":
+            pass
+

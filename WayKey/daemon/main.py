@@ -81,6 +81,10 @@ def process_command(command):
         input_devices[device_id].uinput.syn()
         return {"status": "success", "message": "Mouse event processed"}
 
+    elif command_type == "get_devices":
+        devices = [device.device_info for device_id, device in input_devices.items()]
+        return {"status": "success", "devices": devices}
+
     return {"status": "error", "message": "Unknown command"}
 
 if __name__ == "__main__":
