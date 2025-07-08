@@ -2,6 +2,20 @@ from evdev import UInput, AbsInfo, ecodes as e
 import json
 import os
 
+def get_path_from_id(device_id: str) -> str or None:
+    """
+    Returns the path to the device file based on the device ID.
+    """
+    device_dir = os.path.expanduser(os.path.join("~", ".config", "waykey", "devices"))
+    if not os.path.exists(device_dir):
+        raise FileNotFoundError(f"Device directory {device_dir} does not exist.")
+    for filename in os.listdir(device_dir):
+        with open(os.path.join(device_dir, filename), 'r') as f:
+            device_info = json.loads(f.read())
+            if device_info.get("id") == device_id:
+                return os.path.join(device_dir, filename)
+    return None
+
 def init_device(device_path: str = None) -> tuple:
     """
     Initializes an InputDevice

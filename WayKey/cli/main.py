@@ -75,6 +75,19 @@ def list_devices() -> None:
     for device_info in response.get("devices", []):
         print(f"{device_info.get('id', ''):<{id_width}}\t{device_info.get('name', ''):<{name_width}}")
 
+def load_device(device_id: str) -> None:
+    """
+    Load a device by ID
+    """
+    response = send_command({
+        "type": "load_device",
+        "id": device_id
+    })
+    if response.get("status") == "success":
+        print(f"Device {device_id} loaded successfully.")
+    else:
+        print(f"Failed to load device {device_id}: {response.get('message', 'Unknown error')}")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='WayKey CLI')
     subparsers = parser.add_subparsers(dest="command", required=True, help="Command to execute")
@@ -120,5 +133,5 @@ if __name__ == "__main__":
         if args.device_command == "list":
             list_devices()
         elif args.device_command == "load":
-            pass
+            load_device(args.id)
 

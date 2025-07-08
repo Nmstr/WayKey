@@ -1,4 +1,4 @@
-from _device import init_device
+from _device import init_device, get_path_from_id
 from evdev import ecodes as e
 import socket
 import json
@@ -84,6 +84,17 @@ def process_command(command):
     elif command_type == "get_devices":
         devices = [device.device_info for device_id, device in input_devices.items()]
         return {"status": "success", "devices": devices}
+
+    elif command_type == "load_device":
+        id = command.get("id", None)
+        if not id:
+            return {"status": "error", "message": "Device ID is required"}
+        device_path = get_path_from_id(id)
+        if not device_path:
+            return {"status": "error", "message": f"Device with ID {id} not found"}
+        device_id, device = init_device(device_path)
+        input_devices[device_id] = device
+        return {"status": "success", "message": f"Device {device_id} loaded"}
 
     return {"status": "error", "message": "Unknown command"}
 
