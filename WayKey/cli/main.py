@@ -18,44 +18,64 @@ def send_command(command: dict) -> dict:
     finally:
         client.close()
 
-def press_key(code) -> dict:
+def press_key(code: str, device_id: str) -> None:
     """
     Press a key
     """
-    return send_command({
+    response = send_command({
         "type": "press",
-        "code": code
+        "code": code,
+        "device_id": device_id
     })
+    if response.get("status") == "success":
+        print(f"Key {code} pressed successfully.")
+    else:
+        print(f"Failed to press key {code}: {response.get('message', 'Unknown error')}")
 
-def release_key(code) -> dict:
+def release_key(code: str, device_id: str) -> None:
     """
     Release a key
     """
-    return send_command({
+    response = send_command({
         "type": "release",
-        "code": code
+        "code": code,
+        "device_id": device_id
     })
+    if response.get("status") == "success":
+        print(f"Key {code} released successfully.")
+    else:
+        print(f"Failed to release key {code}: {response.get('message', 'Unknown error')}")
 
-def click_key(code) -> dict:
+def click_key(code: str, device_id: str) -> None:
     """
     Click a key
     """
-    return send_command({
+    response = send_command({
         "type": "click",
-        "code": code
+        "code": code,
+        "device_id": device_id
     })
+    if response.get("status") == "success":
+        print(f"Key {code} clicked successfully.")
+    else:
+        print(f"Failed to click key {code}: {response.get('message', 'Unknown error')}")
 
-def mouse_move(x: int, y: int, w: int = 0, absolute: bool = False) -> dict:
+def mouse_move(x: int, y: int, w: int = 0, absolute: bool = False, device_id: str = "default_device") -> None:
     """
     Move the mouse cursor
     """
-    return send_command({
+    response = send_command({
         "type": "mouse_move",
         "x": x,
         "y": y,
         "w": w,
-        "absolute": absolute
+        "absolute": absolute,
+        "device_id": device_id
     })
+    if response.get("status") == "success":
+        print(f"Mouse moved to ({x}, {y}) with wheel movement {w} {'(absolute)' if absolute else '(relative)'} successfully.")
+    else:
+        print(f"Failed to move mouse: {response.get('message', 'Unknown error')}")
 
 def list_devices() -> None:
     """
@@ -96,12 +116,14 @@ if __name__ == "__main__":
     for cmd in ["press", "release", "click"]:
         key_parser = subparsers.add_parser(cmd, help=f"{cmd.capitalize()} a key")
         key_parser.add_argument("key", type=str, help="Key code to use")
+        key_parser.add_argument("-d", type=str, default="default_device", help="ID of the device to use (default: 'default_device')")
     # Mouse move command
     mouse_parser = subparsers.add_parser("mouse_move", help="Move the mouse cursor")
     mouse_parser.add_argument("x", type=int, help="X coordinate")
     mouse_parser.add_argument("y", type=int, help="Y coordinate")
     mouse_parser.add_argument("-w", type=int, default=0, help="Wheel movement (Only for relative movement)")
     mouse_parser.add_argument("-a", "--absolute", action='store_true', help="Use absolute coordinates")
+    mouse_parser.add_argument("-d", type=str, default="default_device", help="ID of the device to use (default: 'default_device')")
 
     device_parser = subparsers.add_parser("device", help="Manage devices")
     device_subparsers = device_parser.add_subparsers(dest="device_command", required=True, help="Device command to execute")
@@ -115,23 +137,24 @@ if __name__ == "__main__":
     if args.command in ["press", "release", "click"]:
         try:
             key_code = getattr(e, args.key)
+            device_id = args.d
             if args.command == "press":
-                press_key(key_code)
+                press_key(key_code, device_id)
             elif args.command == "release":
-                release_key(key_code)
+                release_key(key_code, device_id)
             elif args.command == "click":
-                click_key(key_code)
+                click_key(key_code, device_id)
         except AttributeError:
             print(f"Error: Invalid key code '{args.key}'.")
             exit(1)
     elif args.command == "mouse_move":
+        device_id = args.d
         if args.absolute and args.w:
             print("Error: Wheel movement can not be used with absolute movement.")
             exit(1)
-        mouse_move(args.x, args.y, args.w, args.absolute)
+        mouse_move(args.x, args.y, args.w, args.absolute, device_id)
     elif args.command == "device":
         if args.device_command == "list":
             list_devices()
         elif args.device_command == "load":
             load_device(args.id)
-

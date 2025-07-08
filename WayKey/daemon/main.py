@@ -1,4 +1,4 @@
-from _device import init_device, get_path_from_id
+from _device import init_device, get_path_from_id, is_id_valid
 from evdev import ecodes as e
 import socket
 import json
@@ -47,6 +47,9 @@ def main():
 def process_command(command):
     command_type = command.get("type")
     device_id = command.get("device_id", "default_device")
+    if not is_id_valid(device_id):
+        return {"status": "error", "message": f"Invalid device ID: {device_id}"}
+
     if command_type == "click":
         delay = command.get("delay", 0)
         input_devices[device_id].uinput.write(e.EV_KEY, command["code"], 1)

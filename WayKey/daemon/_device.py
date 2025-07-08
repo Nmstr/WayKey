@@ -16,6 +16,22 @@ def get_path_from_id(device_id: str) -> str or None:
                 return os.path.join(device_dir, filename)
     return None
 
+def is_id_valid(device_id: str) -> bool:
+    """
+    Checks if any given device ID is valid.
+    """
+    if device_id == "default_device":
+        return True
+    device_dir = os.path.expanduser(os.path.join("~", ".config", "waykey", "devices"))
+    if not os.path.exists(device_dir):
+        return False
+    for filename in os.listdir(device_dir):
+        with open(os.path.join(device_dir, filename), 'r') as f:
+            device_info = json.loads(f.read())
+            if device_info.get("id") == device_id:
+                return True
+    return False
+
 def init_device(device_path: str = None) -> tuple:
     """
     Initializes an InputDevice
