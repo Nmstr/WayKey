@@ -59,8 +59,13 @@ class InputDevice:
 
         key_list = []
         for key, value in e.keys.items():
-            if value in self.device_info.get("keys", []):
-                key_list.append(key)
+            if isinstance(value, tuple):
+                for v in value:
+                    if v in self.device_info.get("keys", []) and key not in key_list:
+                        key_list.append(key)
+            else:
+                if value in self.device_info.get("keys", []) and key not in key_list:
+                    key_list.append(key)
 
         cap = {
             e.EV_KEY : key_list,
