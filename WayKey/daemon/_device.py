@@ -1,4 +1,5 @@
 from evdev import UInput, AbsInfo, ecodes as e
+from screeninfo import get_monitors
 import json
 import os
 
@@ -57,6 +58,7 @@ class InputDevice:
         with open(device_path, 'r') as f:
             self.device_info = json.loads(f.read())
 
+        # Build the key list from the device info
         key_list = []
         for key, value in e.keys.items():
             if isinstance(value, tuple):
@@ -67,13 +69,21 @@ class InputDevice:
                 if value in self.device_info.get("keys", []) and key not in key_list:
                     key_list.append(key)
 
+        # Determine the largest x and y coordinates based on connected monitors
+        largest_x, largest_y = 0, 0
+        for monitor in get_monitors():
+            if monitor.x + monitor.width > largest_x:
+                largest_x = monitor.x + monitor.width
+            if monitor.y + monitor.height > largest_y:
+                largest_y = monitor.y + monitor.height
+
         cap = {
             e.EV_KEY : key_list,
             e.EV_REL : [e.REL_X, e.REL_Y, e.REL_WHEEL],
             e.EV_ABS : [
-                (e.ABS_X, AbsInfo(value=0, min=0, max=1920,
+                (e.ABS_X, AbsInfo(value=0, min=0, max=largest_x,
                                   fuzz=0, flat=0, resolution=0)),
-                (e.ABS_Y, AbsInfo(value=0, min=0, max=1080,
+                (e.ABS_Y, AbsInfo(value=0, min=0, max=largest_y,
                                   fuzz=0, flat=0, resolution=0))
             ]
         }
