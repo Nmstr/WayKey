@@ -46,14 +46,15 @@ def release_key(code: str, device_id: str) -> None:
     else:
         print(f"Failed to release key {code}: {response.get('message', 'Unknown error')}")
 
-def click_key(code: str, device_id: str) -> None:
+def click_key(code: str, device_id: str, delay: int = 0) -> None:
     """
     Click a key
     """
     response = send_command({
         "type": "click",
         "code": code,
-        "device_id": device_id
+        "device_id": device_id,
+        "delay": delay
     })
     if response.get("status") == "success":
         print(f"Key {code} clicked successfully.")
@@ -117,6 +118,8 @@ if __name__ == "__main__":
         key_parser = subparsers.add_parser(cmd, help=f"{cmd.capitalize()} a key")
         key_parser.add_argument("key", type=str, help="Key code to use")
         key_parser.add_argument("-d", type=str, default="default_device", help="ID of the device to use (default: 'default_device')")
+        if cmd == "click":
+            key_parser.add_argument("--delay", type=float, default=0, help="Delay between the press and release (in seconds)")
     # Mouse move command
     mouse_parser = subparsers.add_parser("mouse_move", help="Move the mouse cursor")
     mouse_parser.add_argument("x", type=int, help="X coordinate")
@@ -143,7 +146,7 @@ if __name__ == "__main__":
             elif args.command == "release":
                 release_key(key_code, device_id)
             elif args.command == "click":
-                click_key(key_code, device_id)
+                click_key(key_code, device_id, args.delay)
         except AttributeError:
             print(f"Error: Invalid key code '{args.key}'.")
             exit(1)
