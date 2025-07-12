@@ -24,3 +24,15 @@ dependencies = [
 [project.urls]
 Source = "https://github.com/Nmstr/WayKey"
 Issues = "https://github.com/Nmstr/WayKey/issues"
+
+[build-system]
+requires = ["uv_build>=0.7.20,<0.8.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "WayKey"
+source-exclude = [
+    "daemon",
+    "cli"
+]
