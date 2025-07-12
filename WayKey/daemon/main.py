@@ -57,6 +57,15 @@ def load_device(command: dict) -> dict:
     input_devices[device_id] = device
     return {"status": "success", "message": f"Device {device_id} loaded"}
 
+def unload_device(command: dict) -> dict:
+    device_id = command.get("id", None)
+    if not is_id_valid(device_id):
+        return {"status": "error", "message": f"Invalid device ID: {device_id}"}
+    if device_id not in input_devices:
+        return {"status": "error", "message": f"Device {device_id} not found"}
+    del input_devices[device_id]
+    return {"status": "success", "message": f"Device {device_id} unloaded"}
+
 def process_command(command: dict) -> dict:
     command_type = command.get("type")
     device_id = command.get("device_id", "default_device")
@@ -80,6 +89,9 @@ def process_command(command: dict) -> dict:
 
     elif command_type == "load_device":
         return load_device(command)
+
+    elif command_type == "unload_device":
+        return unload_device(command)
 
     return {"status": "error", "message": "Unknown command"}
 

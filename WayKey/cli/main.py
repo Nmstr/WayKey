@@ -109,6 +109,19 @@ def load_device(device_id: str) -> None:
     else:
         print(f"Failed to load device {device_id}: {response.get('message', 'Unknown error')}")
 
+def unload_device(device_id: str) -> None:
+    """
+    Unload a device by ID
+    """
+    response = send_command({
+        "type": "unload_device",
+        "id": device_id
+    })
+    if response.get("status") == "success":
+        print(f"Device {device_id} unloaded successfully.")
+    else:
+        print(f"Failed to unload device {device_id}: {response.get('message', 'Unknown error')}")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='WayKey CLI')
     subparsers = parser.add_subparsers(dest="command", required=True, help="Command to execute")
@@ -134,6 +147,8 @@ if __name__ == "__main__":
     device_subparsers.add_parser("list", help="List available devices")
     load_parser = device_subparsers.add_parser("load", help="Load a device by ID")
     load_parser.add_argument("id", type=str, help="ID of the device to load")
+    unload_parser = device_subparsers.add_parser("unload", help="Unload a device by ID")
+    unload_parser.add_argument("id", type=str, help="ID of the device to unload")
 
     args = parser.parse_args()
 
@@ -161,3 +176,5 @@ if __name__ == "__main__":
             list_devices()
         elif args.device_command == "load":
             load_device(args.id)
+        elif args.device_command == "unload":
+            unload_device(args.id)
