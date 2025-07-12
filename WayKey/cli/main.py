@@ -102,7 +102,7 @@ def load_device(device_id: str) -> None:
     """
     response = send_command({
         "type": "load_device",
-        "id": device_id
+        "device_id": device_id
     })
     if response.get("status") == "success":
         print(f"Device {device_id} loaded successfully.")
@@ -115,7 +115,7 @@ def unload_device(device_id: str) -> None:
     """
     response = send_command({
         "type": "unload_device",
-        "id": device_id
+        "device_id": device_id
     })
     if response.get("status") == "success":
         print(f"Device {device_id} unloaded successfully.")

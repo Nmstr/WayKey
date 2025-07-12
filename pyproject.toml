@@ -1,5 +1,6 @@
 [project]
 name = "WayKey"
+version = "0.1.0"
 readme = "README.md"
 description = "Wayland automation"
 requires-python = ">=3.13"
@@ -16,11 +17,22 @@ classifiers = [
     "Intended Audience :: Developers",
     "Intended Audience :: End Users/Desktop",
 ]
+dependencies = [
+    "evdev>=1.9.2",
+    "screeninfo>=0.8.1",
+]
 [project.urls]
 Source = "https://github.com/Nmstr/WayKey"
 Issues = "https://github.com/Nmstr/WayKey/issues"
 
-dependencies = [
-    "evdev>=1.9.2",
-    "screeninfo>=0.8.1",
+[build-system]
+requires = ["uv_build>=0.7.20,<0.8.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "WayKey"
+source-exclude = [
+    "daemon",
+    "cli"
 ]

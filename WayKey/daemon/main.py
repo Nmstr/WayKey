@@ -47,7 +47,7 @@ def get_devices() -> dict:
     return {"status": "success", "devices": devices}
 
 def load_device(command: dict) -> dict:
-    new_id = command.get("id", None)
+    new_id = command.get("device_id", None)
     if not new_id:
         return {"status": "error", "message": "Device ID is required"}
     device_path = get_path_from_id(new_id)
@@ -58,7 +58,7 @@ def load_device(command: dict) -> dict:
     return {"status": "success", "message": f"Device {device_id} loaded"}
 
 def unload_device(command: dict) -> dict:
-    device_id = command.get("id", None)
+    device_id = command.get("device_id", None)
     if not is_id_valid(device_id):
         return {"status": "error", "message": f"Invalid device ID: {device_id}"}
     if device_id not in input_devices:
