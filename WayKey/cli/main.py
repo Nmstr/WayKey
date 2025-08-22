@@ -15,6 +15,9 @@ def send_command(command: dict) -> dict:
         client.sendall(json.dumps(command).encode('utf-8'))
         response = client.recv(4096).decode('utf-8')
         return json.loads(response)
+    except socket.error as e:
+        print("Could not connect to the WayKey daemon. Is it running?")
+        return {"status": "error", "message": str(e)}
     finally:
         client.close()
 
