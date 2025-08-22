@@ -20,7 +20,7 @@ def _send_command(command: dict) -> dict:
     finally:
         client.close()
 
-def _convert_code(code: str) -> int or None:
+def _convert_code(code: str) -> int | None:
     """
     Convert a key code from string to integer
     """
