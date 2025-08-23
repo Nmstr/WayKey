@@ -28,4 +28,6 @@ extra:
       link: https://github.com/Nmstr/WayKey
 
 nav:
-  - Home: 'index.md'
+  - Home: "index.md"
+  - Cli: "cli.md"
+  - Library: "library.md"
