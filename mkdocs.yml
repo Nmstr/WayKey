@@ -2,6 +2,8 @@ site_name: WayKey
 site_url: https://nmstr.github.io/WayKey/
 theme:
   name: "material"
+  logo: "assets/WayKey.svg"
+  favicon: "assets/WayKey.svg"
   features:
     - navigation.tabs
     - navigation.expand
