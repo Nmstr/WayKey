@@ -36,3 +36,8 @@ source-exclude = [
     "daemon",
     "cli"
 ]
+
+[dependency-groups]
+dev = [
+    "mkdocs-material>=9.6.18",
+]

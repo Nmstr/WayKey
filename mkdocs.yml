@@ -1,0 +1,33 @@
+site_name: WayKey
+site_url: https://nmstr.github.io/WayKey/
+theme:
+  name: "material"
+  logo: "assets/WayKey.svg"
+  favicon: "assets/WayKey.svg"
+  features:
+    - navigation.tabs
+    - navigation.expand
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Nmstr/WayKey
+
+nav:
+  - Home: "index.md"
+  - Cli: "cli.md"
+  - Library: "library.md"

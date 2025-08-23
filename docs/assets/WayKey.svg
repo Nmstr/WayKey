@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="WayKey.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.3164062"
+     inkscape:cx="246.88427"
+     inkscape:cy="260.55786"
+     inkscape:window-width="1888"
+     inkscape:window-height="988"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#ffbb00;fill-opacity:1;stroke:none;stroke-width:10.4061;stroke-linejoin:bevel;stroke-opacity:1;paint-order:stroke fill markers"
+       id="path1"
+       cx="256"
+       cy="256"
+       r="256" />
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-weight:bold;font-size:318.844px;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold Italic';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:50;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       x="6.0773778"
+       y="300.40417"
+       id="text2"
+       transform="scale(1.2130489,0.82436907)"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="6.0773778"
+         y="300.40417"
+         style="stroke:#000000;stroke-width:50;stroke-dasharray:none;stroke-opacity:1">W</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-weight:bold;font-size:21.3333px;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold Italic';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:89.6901;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.53784;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       x="101.79228"
+       y="155.72701"
+       id="text1"
+       transform="matrix(27.693054,0,0,14.016525,-2749.4423,-1742.1581)"><tspan
+         x="101.79228"
+         y="155.72701"
+         id="tspan3">K</tspan></text>
+  </g>
+</svg>
